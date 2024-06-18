@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuarios; // Cambio de User a Usuarios
+use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,33 +19,37 @@ class LoginController extends Controller
         $user = new Usuarios();
         $user->nombre = $validatedData['nombre'];
         $user->apellido = $validatedData['apellido'];
-        $user->email = $validatedData['email'];  // Corrección aquí
+        $user->email = $validatedData['email'];
         $user->password = Hash::make($validatedData['password']);
         $user->save();
     
         Auth::login($user);
-        return redirect(route('privada'));
+        return redirect(route('dashboard'));
     }
     
     public function login(Request $request){
-        //Validar login
         $credentials = [
             "email" => $request->email,
             "password" => $request->password,
-            //"active" =>true
         ];
         $remember = ($request->has('remember') ? true : false);
         if(Auth::attempt($credentials, $remember)){
-            return redirect()->intended('privada'); // Redirige a la dashboard o ruta deseada
+            return redirect()->intended('dashboard');
         } else {
-            return redirect('login'); // Considera mostrar un mensaje de error aquí
+            return redirect('login');
         }
     }
 
-    public function logout (Request $request){
+    public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect(route('login'));
     }
+
+    public function showDashboard() {
+        $user = Auth::user();
+        return view('dashboard', compact('user'));
+    }
 }
+

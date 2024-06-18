@@ -1,0 +1,171 @@
+/* Establece un fondo general y estilo para el body */
+body {
+    background-color: #f8f9fa; /* Un color de fondo suave */
+    font-family: 'Arial', sans-serif; /* Fuente más moderna y legible */
+    color: #333; /* Color de texto más oscuro para mejor contraste */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta el formulario al centro verticalmente */
+}
+
+/* Estiliza el contenedor principal del formulario */
+.container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para el contenedor */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para dispositivos más grandes */
+}
+
+/* Estilos para las etiquetas del formulario */
+label {
+    font-weight: bold;
+    color: #555; /* Color oscuro para las etiquetas para mejor legibilidad */
+}
+
+/* Estilos para los inputs del formulario */
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho final */
+}
+
+/* Estilos para el checkbox */
+.form-check-input {
+    margin-top: 0;
+    margin-right: 5px;
+}
+
+/* Estilos para el botón de enviar */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3; /* Color principal para el botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #004494; /* Un tono más oscuro al hacer hover */
+}
+
+/* Estilo para el enlace de registro */
+a {
+    color: #007bff; /* Color azul para enlaces */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline; /* Subraya el enlace al pasar el mouse */
+}
+
+/* Media queries para responsividad */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem; /* Menos padding en dispositivos pequeños */
+    }
+    body {
+        padding: 10px; /* Añade un poco de espacio alrededor en dispositivos pequeños */
+    }
+}
+
+/* Estilos base ya proporcionados para el formulario de inicio de sesión */
+
+/* Estilización específica para el formulario de registro */
+/* Para que los inputs tengan un estilo ligeramente diferente */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Botón de registro con color distintivo */
+button[type="submit"] {
+    background-color: #007bff; /* Azul Bootstrap */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Modificaciones menores para que el diseño se sienta más integrado y profesional */
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 400px; /* Ajuste del ancho máximo para centrar visualmente el formulario */
+}
+
+/* Añade estilos adicionales para etiquetas y errores si es necesario */
+label {
+    display: block;
+    margin-bottom: .5rem;
+    color: #333;
+}
+
+/* Media queries para ajustar el diseño en dispositivos más pequeños */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+}
+/* Estilo general del body para remover márgenes innecesarios */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center; /* Alinea verticalmente */
+}
+
+/* Flexbox para el contenedor principal */
+.d-flex {
+    display: flex;
+    width: 100%;
+}
+
+/* Estilos para la imagen */
+.side-image img {
+    width: 400px; /* Ajusta este valor según sea necesario */
+    height: auto;
+    margin: auto;
+}
+
+/* Estilos para el formulario */
+.container {
+    flex: 1; /* Toma la otra mitad del espacio disponible */
+    max-width: 500px; 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes responsivos si fuera necesario */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column;
+    }
+    .side-image, .container {
+        flex: none;
+        width: 100%;
+    }
+}

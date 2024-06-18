@@ -11,9 +11,13 @@ class Categorias extends Model
 
     protected $table = 'Categorias';
 
-    protected $fillable =[
+    protected $fillable = [
         'nombre',
         'descripcion'
-
     ];
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'categoria_id');  // Especificar el campo de relación
+    }
 }

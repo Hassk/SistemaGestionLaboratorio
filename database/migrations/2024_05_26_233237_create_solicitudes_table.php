@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateSolicitudesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
-            $table->string('usuario_id');
+            $table->unsignedBigInteger('usuario_id');
             $table->string('tipo_solicitud');
             $table->string('estado');
             $table->string('descripcion');
             $table->timestamps();
+
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -28,4 +30,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('solicitudes');
     }
-};
+}
