@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Solicitud;
+use App\Models\Usuarios; // Asegúrate de importar el modelo Usuarios
 use Illuminate\Support\Facades\Auth;
 
 class SolicitudController extends Controller
@@ -39,7 +40,8 @@ class SolicitudController extends Controller
     public function edit($id)
     {
         $solicitud = Solicitud::findOrFail($id);
-        return view('solicitudes.edit', compact('solicitud'));
+        $usuarios = Usuarios::all(); // Obtén todos los usuarios y pásalos a la vista
+        return view('solicitudes.edit', compact('solicitud', 'usuarios'));
     }
 
     public function update(Request $request, $id)

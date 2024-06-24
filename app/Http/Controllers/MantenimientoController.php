@@ -25,7 +25,7 @@ class MantenimientoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'producto_id' => 'required|exists:producto,id',
+            'producto_id' => 'required|exists:producto,id', // Cambié 'producto' a 'productos' aquí
             'usuario_id' => 'required|exists:usuarios,id',
             'descripcion' => 'required|string|max:255',
             'tipo' => 'required|string|max:255'
@@ -41,13 +41,13 @@ class MantenimientoController extends Controller
         $mantenimiento = Mantenimiento::findOrFail($id);
         $productos = Producto::all();
         $usuarios = Usuarios::all();
-        return view('mantenimientos.edit', compact('mantenimiento', 'productos', 'usuarios'));
+        return view('mantenimientos.edit', compact('mantenimiento', 'producto', 'usuarios'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'producto_id' => 'required|exists:producto,id',
+            'producto_id' => 'required|exists:productos,id', // Cambié 'producto' a 'productos' aquí
             'usuario_id' => 'required|exists:usuarios,id',
             'descripcion' => 'required|string|max:255',
             'tipo' => 'required|string|max:255'

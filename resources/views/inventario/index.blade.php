@@ -2,8 +2,6 @@
 
 @section('title', 'Inventario - Gestión de Inventario')
 
-
-
 @section('content')
 <div class="container mt-4">
     <h1>Inventario</h1>

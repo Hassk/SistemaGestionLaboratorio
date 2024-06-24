@@ -3,6 +3,7 @@
 @section('title', 'Editar Solicitud')
 
 @section('content')
+
 <div class="container">
     <h1>Editar Solicitud</h1>
     <form action="{{ route('solicitudes.update', $solicitud->id) }}" method="POST">
@@ -28,9 +29,10 @@
         @endrole
         <div class="form-group">
             <label for="descripcion">Descripción</label>
-            <input type="text" name="descripcion" id="descripcion" class="form-control" value="{{ $solicitud->descripcion }}" required>
+            <textarea name="descripcion" id="descripcion" class="form-control" required>{{ $solicitud->descripcion }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
+
 @endsection

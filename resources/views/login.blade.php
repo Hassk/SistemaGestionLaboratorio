@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
-    <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:1637893474. -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 </head>
