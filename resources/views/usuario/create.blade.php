@@ -30,15 +30,12 @@
             <label for="password_confirmation">Confirmar Contraseña</label>
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
         </div>
-        <div class="form-group">
-            <label for="role">Rol</label>
-            <select class="form-control" id="role" name="roles[]" multiple required>
-                @foreach($roles as $role)
-                    <option value="{{ $role->name }}">{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
         <button type="submit" class="btn btn-success">Crear Usuario</button>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/success-alert.js') }}"></script>
+    <script src="{{ asset('js/delete-confirm.js') }}"></script>
 @endsection

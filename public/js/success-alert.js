@@ -7,6 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
-        }, 100); // Agregar un retraso de 100 ms
+        }, );
     }
 });
