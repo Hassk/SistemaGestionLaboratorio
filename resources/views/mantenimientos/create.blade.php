@@ -31,7 +31,19 @@
             <label for="tipo">Tipo</label>
             <input type="text" name="tipo" id="tipo" class="form-control" required>
         </div>
+        <div class="form-group">
+            <label for="fecha_inicio">Fecha de Inicio</label>
+            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="fecha_fin">Fecha de Fin (Estimada)</label>
+            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
+        </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/success-alert.js') }}"></script>
 @endsection

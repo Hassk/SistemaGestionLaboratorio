@@ -4,27 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reporte;
-use App\Models\Usuarios;
 
 class ReporteController extends Controller
 {
     public function index()
     {
-        $reportes = Reporte::with('usuario')->get();
+        $reportes = Reporte::all();
         return view('reporte.index', compact('reportes'));
     }
 
     public function create()
     {
-        $usuarios = Usuarios::all();
-        return view('reporte.create', compact('usuarios'));
+        return view('reporte.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'descripcion' => 'required|string|max:255',
-            'usuario_id' => 'required|exists:usuarios,id'
+            'nombre_estudiante' => 'required|string|max:255',
+            'codigo_universitario' => 'required|string|max:255',
+            'facultad' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'docente_a_cargo' => 'required|string|max:255'
         ]);
 
         Reporte::create($request->all());
@@ -35,15 +37,18 @@ class ReporteController extends Controller
     public function edit($id)
     {
         $reporte = Reporte::findOrFail($id);
-        $usuarios = Usuarios::all();
-        return view('reporte.edit', compact('reporte', 'usuarios'));
+        return view('reporte.edit', compact('reporte'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'descripcion' => 'required|string|max:255',
-            'usuario_id' => 'required|exists:usuarios,id'
+            'nombre_estudiante' => 'required|string|max:255',
+            'codigo_universitario' => 'required|string|max:255',
+            'facultad' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'docente_a_cargo' => 'required|string|max:255'
         ]);
 
         $reporte = Reporte::findOrFail($id);

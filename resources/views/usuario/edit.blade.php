@@ -3,8 +3,14 @@
 @section('content')
 <div class="container">
     <h1>Editar Usuario</h1>
-    <form action="{{ route('usuarios.update', $user) }}" method="POST">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <form action="{{ route('usuario.update', $user->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $user->nombre }}" required>
@@ -19,12 +25,13 @@
         </div>
         <div class="form-group">
             <label for="role">Rol</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+            <select class="form-control" id="role" name="roles[]" multiple required>
+                @foreach($roles as $role)
+                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
+                @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="submit" class="btn btn-success">Actualizar Usuario</button>
     </form>
 </div>
 @endsection

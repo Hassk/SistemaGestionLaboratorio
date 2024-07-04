@@ -4,39 +4,47 @@
 
 @section('content')
 <div class="container">
-    <h1>Solicitudes</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Solicitudes</h1>
+        <a href="{{ route('solicitudes.create') }}" class="btn btn-primary">Agregar Solicitud</a>
+    </div>
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+        <meta name="alert-success" content="{{ session('success') }}">
     @endif
-    <a href="{{ route('solicitudes.create') }}" class="btn btn-primary">Agregar Solicitud</a>
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>N°</th>
                 <th>Usuario</th>
                 <th>Tipo de Solicitud</th>
                 <th>Estado</th>
                 <th>Descripción</th>
+                <th>Fecha de Solicitud</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach($solicitudes as $solicitud)
                 <tr>
-                    <td>{{ $solicitud->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $solicitud->usuario->nombre }}</td>
                     <td>{{ $solicitud->tipo_solicitud }}</td>
                     <td>{{ $solicitud->estado }}</td>
                     <td>{{ $solicitud->descripcion }}</td>
+                    <td>{{ $solicitud->fecha_solicitud ? $solicitud->fecha_solicitud->format('d/m/Y') : 'N/A' }}</td>
                     <td>
-                        <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('solicitudes.destroy', $solicitud->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+                    <div class="btn-group" role="group" aria-label="Acciones">
+                            <a href="{{ route('solicitudes.edit', $solicitud->id) }}" class="btn btn-warning mr-2">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger delete-button" data-id="{{ $solicitud->id }}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <form id="delete-form-{{ $solicitud->id }}" action="{{ route('solicitudes.destroy', $solicitud->id) }}" method="POST" style="display:none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach

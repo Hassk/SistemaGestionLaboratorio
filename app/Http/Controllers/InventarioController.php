@@ -8,10 +8,24 @@ use App\Models\Categorias;
 
 class InventarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $search = $request->input('search');
+            $productos = Producto::when($search, function ($query, $search) {
+                return $query->where('nombre', 'like', "%$search%")
+                             ->orWhere('descripcion', 'like', "%$search%")
+                             ->orWhereHas('categoria', function ($q) use ($search) {
+                                 $q->where('nombre', 'like', "%$search%");
+                             });
+            })->get();
+
+            return response()->json($productos);
+        }
+
         $productos = Producto::all();
         $categorias = Categorias::all();
+
         return view('inventario.index', compact('productos', 'categorias'));
     }
 
@@ -63,5 +77,51 @@ class InventarioController extends Controller
         $producto->delete();
 
         return redirect()->route('inventario.index')->with('success', 'Producto eliminado con éxito');
+    }
+
+    // Método para la búsqueda en vivo
+    public function liveSearch(Request $request)
+    {
+        $search = $request->input('query');
+
+        $productos = Producto::when($search, function ($query, $search) {
+            return $query->where('nombre', 'like', "%$search%")
+                         ->orWhere('descripcion', 'like', "%$search%")
+                         ->orWhereHas('categoria', function ($q) use ($search) {
+                             $q->where('nombre', 'like', "%$search%");
+                         });
+        })->get();
+
+        $output = '';
+        if ($productos->count() > 0) {
+            foreach ($productos as $index => $producto) {
+                $output .= '
+                <tr>
+                    <td>' . ($index + 1) . '</td>
+                    <td>' . $producto->nombre . '</td>
+                    <td>' . $producto->descripcion . '</td>
+                    <td>' . $producto->categoria->nombre . '</td>
+                    <td>' . $producto->cantidad . '</td>
+                    <td class="' . ($producto->estado === 'disponible' ? 'text-success' : 'text-danger') . '">' . ucfirst($producto->estado) . '</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Acciones">
+                            <a href="' . route('inventario.edit', $producto->id) . '" class="btn btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger delete-button" data-id="' . $producto->id . '">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <form id="delete-form-' . $producto->id . '" action="' . route('inventario.destroy', $producto->id) . '" method="POST" style="display:none;">
+                                ' . csrf_field() . method_field('DELETE') . '
+                            </form>
+                        </div>
+                    </td>
+                </tr>';
+            }
+        } else {
+            $output .= '<tr><td colspan="7">No hay resultados</td></tr>';
+        }
+
+        return response()->json(['table_data' => $output]);
     }
 }

@@ -1,3 +1,7 @@
+body {
+    font-family: 'Exo', sans-serif;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -6,7 +10,7 @@ body {
     display: flex;
     height: 100vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Exo', sans-serif;
 }
 .side-image img {
     width: 100px; /* Ajusta este valor según sea necesario */
@@ -68,4 +72,47 @@ header h1 {
 .content {
     height: calc(100% - 40px); /* Adjust height */
     overflow-y: auto;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em; /* Asegúrate de que el tamaño de fuente sea adecuado para tus íconos y texto */
+}
+
+.card-header i {
+    margin-right: 10px;
+    font-size: 1.5em; /* Ajusta el tamaño del ícono si es necesario */
+}
+
+.card-body {
+    padding-top: 20px; /* Aumenta el padding superior para separar el contenido del ícono */
+}
+
+/* Modo oscuro */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.sidebar.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Ajustes adicionales para otros elementos */
+.nav-menu ul li a {
+    color: inherit;
+}
+
+.nav-menu ul li a:hover {
+    background-color: #555;
+}
+
+.btn-group .btn {
+    margin-right: 5px; /* Ajusta este valor según sea necesario */
+}
+
+.btn-group .btn:last-child {
+    margin-right: 0;
 }

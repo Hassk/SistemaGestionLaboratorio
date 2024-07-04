@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InventarioController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\DashboardController;
 
 Route::view('/login', "login")->name('login');
 Route::view('/registro', "register")->name('registro');
@@ -19,7 +20,8 @@ Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-s
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [LoginController::class, 'showDashboard'])->name('dashboard');
+    // Asegúrate de que solo haya una definición para '/dashboard'
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Rutas para todos los usuarios autenticados
     Route::get('/inventario', [InventarioController::class, 'index'])->name('inventario.index');
@@ -28,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inventario/{id}/edit', [InventarioController::class, 'edit'])->name('inventario.edit');
     Route::put('/inventario/{id}', [InventarioController::class, 'update'])->name('inventario.update');
     Route::delete('/inventario/{id}', [InventarioController::class, 'destroy'])->name('inventario.destroy');
+    Route::get('/inventario/live_search', 'SearchController@action')->name('live_search.action');
+
 
     // Rutas para el manejo de prestamos
     Route::get('/prestamo', [PrestamoController::class, 'index'])->name('prestamo.index');
@@ -38,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/prestamo/{id}', [PrestamoController::class, 'destroy'])->name('prestamo.destroy');
 
     // Rutas protegidas por el rol de administrador
-    Route::middleware(['role:admin'])->group(function () {
-        Route::get('/usuarios', [AdminController::class, 'index'])->name('usuarios.index');
-        Route::get('/usuarios/{user}/edit', [AdminController::class, 'edit'])->name('usuarios.edit');
-        Route::post('/usuarios/{user}', [AdminController::class, 'update'])->name('usuarios.update');
-
-        Route::get('/users/{user}/assign-role', [UserController::class, 'showAssignRoleForm'])->name('users.showAssignRoleForm');
-        Route::post('/users/{user}/assign-role', [UserController::class, 'assignRole'])->name('users.assignRole');
-    });
+        Route::get('usuario', [UsuarioController::class, 'index'])->name('usuario.index');
+        Route::get('usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
+        Route::post('usuario', [UsuarioController::class, 'store'])->name('usuario.store');
+        Route::get('usuario/{id}/edit', [UsuarioController::class, 'edit'])->name('usuario.edit');
+        Route::put('usuario/{id}', [UsuarioController::class, 'update'])->name('usuario.update');
+        Route::delete('usuario/{id}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
+        Route::get('usuario/{id}/assign-role', [UsuarioController::class, 'showAssignRoleForm'])->name('usuario.assignRoleForm');
+        Route::post('usuario/{id}/assign-role', [UsuarioController::class, 'assignRole'])->name('usuario.assignRole');
 
     // Rutas para el manejo de categorias
     Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
@@ -70,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mantenimientos/{id}/edit', [MantenimientoController::class, 'edit'])->name('mantenimientos.edit');
     Route::put('/mantenimientos/{id}', [MantenimientoController::class, 'update'])->name('mantenimientos.update');
     Route::delete('/mantenimientos/{id}', [MantenimientoController::class, 'destroy'])->name('mantenimientos.destroy');
+    Route::post('/mantenimientos/{id}/finalize', [MantenimientoController::class, 'finalize'])->name('mantenimientos.finalize');
 
     // Rutas para el manejo de solicitudes
     Route::get('/solicitudes', [SolicitudController::class, 'index'])->name('solicitudes.index');

@@ -4,17 +4,17 @@
 
 @section('content')
 <div class="container">
-    <h1>Préstamos</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Préstamos</h1>
+        <a href="{{ route('prestamo.create') }}" class="btn btn-primary">Agregar préstamo</a>
+    </div>
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    <a href="{{ route('prestamo.create') }}" class="btn btn-primary">Agregar Préstamo</a>
+        <meta name="alert-success" content="{{ session('success') }}">
+    @endif  
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>N°</th>
                 <th>Producto</th>
                 <th>Usuario</th>
                 <th>Descripción</th>
@@ -26,19 +26,25 @@
         <tbody>
             @foreach($prestamos as $prestamo)
                 <tr>
-                    <td>{{ $prestamo->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $prestamo->producto ? $prestamo->producto->nombre : 'Producto no disponible' }}</td>
                     <td>{{ $prestamo->usuario ? $prestamo->usuario->nombre : 'Usuario no disponible' }}</td>
                     <td>{{ $prestamo->descripcion }}</td>
                     <td>{{ $prestamo->fecha_prestamo }}</td>
                     <td>{{ $prestamo->fecha_devolucion }}</td>
                     <td>
-                        <a href="{{ route('prestamo.edit', $prestamo->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('prestamo.destroy', $prestamo->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+                    <div class="btn-group" role="group" aria-label="Acciones">
+                            <a href="{{ route('prestamo.edit', $prestamo->id) }}" class="btn btn-warning mr-2">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger delete-button" data-id="{{ $prestamo->id }}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <form id="delete-form-{{ $prestamo->id }}" action="{{ route('prestamo.destroy', $prestamo->id) }}" method="POST" style="display:none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach

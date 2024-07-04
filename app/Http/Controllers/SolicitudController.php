@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Solicitud;
-use App\Models\Usuarios; // Asegúrate de importar el modelo Usuarios
+use App\Models\Usuarios;
 use Illuminate\Support\Facades\Auth;
 
 class SolicitudController extends Controller
@@ -30,7 +30,8 @@ class SolicitudController extends Controller
 
         $data = $request->only(['tipo_solicitud', 'descripcion']);
         $data['usuario_id'] = Auth::user()->id;
-        $data['estado'] = 'pendiente'; // Estado inicial
+        $data['estado'] = 'pendiente';
+        $data['fecha_solicitud'] = now(); // Añade la fecha actual
 
         Solicitud::create($data);
 
@@ -40,7 +41,7 @@ class SolicitudController extends Controller
     public function edit($id)
     {
         $solicitud = Solicitud::findOrFail($id);
-        $usuarios = Usuarios::all(); // Obtén todos los usuarios y pásalos a la vista
+        $usuarios = Usuarios::all();
         return view('solicitudes.edit', compact('solicitud', 'usuarios'));
     }
 

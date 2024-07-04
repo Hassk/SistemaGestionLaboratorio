@@ -32,7 +32,23 @@
             <label for="tipo">Tipo</label>
             <input type="text" name="tipo" id="tipo" class="form-control" value="{{ $mantenimiento->tipo }}" required>
         </div>
+        <div class="form-group">
+            <label for="fecha_inicio">Fecha de Inicio</label>
+            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ $mantenimiento->fecha_inicio }}">
+        </div>
+        <div class="form-group">
+            <label for="fecha_fin">Fecha de Fin (Estimada)</label>
+            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ $mantenimiento->fecha_fin }}">
+        </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
+    <form action="{{ route('mantenimientos.finalize', $mantenimiento->id) }}" method="POST" class="mt-2">
+        @csrf
+        <button type="submit" class="btn btn-success">Finalizar Mantenimiento</button>
+    </form>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/success-alert.js') }}"></script>
 @endsection

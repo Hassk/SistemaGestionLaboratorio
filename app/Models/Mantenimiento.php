@@ -15,8 +15,12 @@ class Mantenimiento extends Model
         'producto_id',
         'usuario_id',
         'descripcion',
-        'tipo'
+        'tipo',
+        'fecha_inicio',
+        'fecha_fin'
     ];
+
+    protected $dates = ['fecha_inicio', 'fecha_fin'];
 
     public function producto()
     {

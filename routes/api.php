@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\Api\productoController;
 use App\http\Controllers\Api\usuariosController;
 use App\http\Controllers\Api\categoriasController;
+use App\Http\Controllers\Api\MantenimientoController;
+
 
 Route::get('/Productos', [productoController::class, 'index']);
 
@@ -38,3 +40,21 @@ Route::post('/Categorias', [categoriasController::class, 'store']);
 Route::put('/Categorias/{id}', [categoriasController::class, 'update']);
 
 Route::delete('/Categorias/{id}', [categoriasController::class, 'destroy']);
+
+// Listar todos los mantenimientos
+Route::get('/mantenimientos', [MantenimientoController::class, 'index']);
+
+// Obtener un mantenimiento específico
+Route::get('/mantenimientos/{id}', [MantenimientoController::class, 'show']);
+
+// Crear un nuevo mantenimiento
+Route::post('/mantenimientos', [MantenimientoController::class, 'store']);
+
+// Actualizar un mantenimiento
+Route::put('/mantenimientos/{id}', [MantenimientoController::class, 'update']);
+
+// Finalizar un mantenimiento
+Route::post('/mantenimientos/{id}/finalize', [MantenimientoController::class, 'finalize']);
+
+// Eliminar un mantenimiento
+Route::delete('/mantenimientos/{id}', [MantenimientoController::class, 'destroy']);

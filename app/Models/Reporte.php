@@ -13,11 +13,16 @@ class Reporte extends Model
 
     protected $fillable = [
         'descripcion',
-        'usuario_id'
+        'nombre_estudiante',
+        'codigo_universitario',
+        'facultad',
+        'fecha',
+        'docente_a_cargo',
+        'created_at'
     ];
-
-    public function usuario()
-    {
-        return $this->belongsTo(Usuarios::class, 'usuario_id');
-    }
+    
+    protected $casts = [
+        'fecha' => 'date',
+    ];
+    
 }

@@ -9,13 +9,18 @@ class Solicitud extends Model
 {
     use HasFactory;
 
-    protected $table = 'solicitudes'; // Especificar el nombre correcto de la tabla
+    protected $table = 'solicitudes';
 
     protected $fillable = [
         'usuario_id',
         'tipo_solicitud',
         'estado',
-        'descripcion'
+        'descripcion',
+        'fecha_solicitud'
+    ];
+
+    protected $casts = [
+        'fecha_solicitud' => 'date',
     ];
 
     public function usuario()
