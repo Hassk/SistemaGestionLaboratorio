@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('mantenimientos', function (Blueprint $table) {
             $table->id();
-            $table->string('producto_id');
-            $table->string('usuario_id');
+            $table->unsignedBigInteger('producto_id');
+            $table->unsignedBigInteger('usuario_id');
             $table->string('descripcion');
             $table->string('tipo');
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->string('estado')->default('en curso');
             $table->timestamps();
+
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 

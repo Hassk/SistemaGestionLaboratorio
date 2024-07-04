@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('reportes', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->unsignedBigInteger('usuario_id')->nullable(); // Permitir nulo
+            $table->unsignedBigInteger('usuario_id')->nullable(); // Usuario puede ser opcional
             $table->string('nombre_estudiante');
             $table->string('codigo_universitario');
             $table->string('facultad');
-            $table->date('fecha');
-            $table->string('docente_a_cargo');
+            $table->date('fecha')->nullable();
+            $table->string('docente_a_cargo')->nullable();
             $table->timestamps();
+
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 

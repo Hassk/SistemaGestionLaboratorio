@@ -15,8 +15,9 @@ class CreateSolicitudesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('usuario_id');
             $table->string('tipo_solicitud');
-            $table->string('estado');
-            $table->string('descripcion');
+            $table->string('estado')->default('pendiente'); // Estado inicial directamente establecido.
+            $table->string('descripcion')->nullable(); // Campo descripción puede ser nulo.
+            $table->date('fecha_solicitud')->nullable(); // Añadido campo fecha de solicitud, puede ser nulo.
             $table->timestamps();
 
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
@@ -30,4 +31,4 @@ class CreateSolicitudesTable extends Migration
     {
         Schema::dropIfExists('solicitudes');
     }
-}
+};
