@@ -18,6 +18,6 @@ class Categorias extends Model
 
     public function productos()
     {
-        return $this->hasMany(Producto::class, 'categoria_id');  // Especificar el campo de relación
+        return $this->hasMany(Producto::class, 'categoria_id');  
     }
 }

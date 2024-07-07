@@ -16,7 +16,10 @@
             <tr>
                 <th>N°</th>
                 <th>Producto</th>
-                <th>Usuario</th>
+                <th>Nombre del Estudiante</th>
+                <th>Código Universitario</th>
+                <th>Facultad</th>
+                <th>Docente a Cargo</th>
                 <th>Descripción</th>
                 <th>Fecha de Préstamo</th>
                 <th>Fecha de Devolución</th>
@@ -27,13 +30,17 @@
             @foreach($prestamos as $prestamo)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $prestamo->producto ? $prestamo->producto->nombre : 'Producto no disponible' }}</td>
-                    <td>{{ $prestamo->usuario ? $prestamo->usuario->nombre : 'Usuario no disponible' }}</td>
+                    <td>{{ $prestamo->producto->nombre }}</td>
+                    <td>{{ $prestamo->nombre_estudiante }}</td>
+                    <td>{{ $prestamo->codigo_universitario }}</td>
+                    <td>{{ $prestamo->facultad }}</td>
+                    <td>{{ $prestamo->docente_a_cargo }}</td>
                     <td>{{ $prestamo->descripcion }}</td>
-                    <td>{{ $prestamo->fecha_prestamo }}</td>
-                    <td>{{ $prestamo->fecha_devolucion }}</td>
+                    <td>{{ Carbon\Carbon::parse($prestamo->fecha_prestamo)->format('d/m/Y') }}</td>
+                    <td>{{ Carbon\Carbon::parse($prestamo->fecha_devolucion)->format('d/m/Y') }}</td>
+
                     <td>
-                    <div class="btn-group" role="group" aria-label="Acciones">
+                        <div class="btn-group" role="group" aria-label="Acciones">
                             <a href="{{ route('prestamo.edit', $prestamo->id) }}" class="btn btn-warning mr-2">
                                 <i class="fas fa-edit"></i>
                             </a>
@@ -51,4 +58,9 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/success-alert.js') }}"></script>
+    <script src="{{ asset('js/delete-confirm.js') }}"></script>
 @endsection
