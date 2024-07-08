@@ -7,6 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
-        }, );
+        }, 500); // Ajusta el tiempo de espera aquí (en milisegundos)
     }
 });

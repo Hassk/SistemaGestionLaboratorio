@@ -18,12 +18,10 @@ Route::view('/registro', "register")->name('registro');
 Route::post('/validar-registro', [LoginController::class, 'register'])->name('validar-registro');
 Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 
 Route::middleware(['auth'])->group(function () {
     // Asegúrate de que solo haya una definición para '/dashboard'
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Rutas para todos los usuarios autenticados
@@ -34,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/inventario/{id}', [InventarioController::class, 'update'])->name('inventario.update');
     Route::delete('/inventario/{id}', [InventarioController::class, 'destroy'])->name('inventario.destroy');
     Route::get('/inventario/live_search', 'SearchController@action')->name('live_search.action');
+    Route::get('/inventario/search_productos', [InventarioController::class, 'searchProductos']);
+
 
 
     // Rutas para el manejo de prestamos
@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/prestamo/{id}/edit', [PrestamoController::class, 'edit'])->name('prestamo.edit');
     Route::put('/prestamo/{id}', [PrestamoController::class, 'update'])->name('prestamo.update');
     Route::delete('/prestamo/{id}', [PrestamoController::class, 'destroy'])->name('prestamo.destroy');
+    Route::put('/prestamo/{id}/finalizar', [PrestamoController::class, 'finalizar'])->name('prestamo.finalizar');
+    
 
     // Rutas protegidas por el rol de administrador
         Route::get('usuario', [UsuarioController::class, 'index'])->name('usuario.index');
@@ -86,6 +88,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/solicitudes/{id}/edit', [SolicitudController::class, 'edit'])->name('solicitudes.edit');
     Route::put('/solicitudes/{id}', [SolicitudController::class, 'update'])->name('solicitudes.update');
     Route::delete('/solicitudes/{id}', [SolicitudController::class, 'destroy'])->name('solicitudes.destroy');
+    Route::post('/solicitudes/aprobar/{id}', [SolicitudController::class, 'aprobar'])->name('solicitudes.aprobar');
+    Route::post('/solicitudes/rechazar/{id}', [SolicitudController::class, 'rechazar'])->name('solicitudes.rechazar');
+
+
 });
 
 Route::get('/', function () {

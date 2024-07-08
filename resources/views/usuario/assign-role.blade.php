@@ -19,6 +19,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Asignar Rol</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Regresar</button>
     </form>
 </div>
 @endsection

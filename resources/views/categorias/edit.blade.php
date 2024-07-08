@@ -18,6 +18,7 @@
             <textarea class="form-control" id="descripcion" name="descripcion" required>{{ $categoria->descripcion }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Regresar</button>
     </form>
 </div>
 @endsection

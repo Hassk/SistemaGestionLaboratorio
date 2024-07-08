@@ -32,6 +32,7 @@
             <input type="text" name="docente_a_cargo" id="docente_a_cargo" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Regresar</button>
     </form>
 </div>
 @endsection

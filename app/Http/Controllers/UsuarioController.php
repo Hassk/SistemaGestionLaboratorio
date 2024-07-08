@@ -28,18 +28,18 @@ class UsuarioController extends Controller
             'apellido' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:usuarios',
             'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required'
         ]);
-
+    
         $usuario = Usuarios::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
-        $usuario->assignRole($request->roles);
-
+    
+        // Remover todos los roles actuales antes de asignar uno nuevo
+        $usuario->syncRoles($request->roles);
+    
         return redirect()->route('usuario.index')->with('success', 'Usuario creado exitosamente.');
     }
 
@@ -56,18 +56,18 @@ class UsuarioController extends Controller
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:usuarios,email,' . $id,
-            'roles' => 'required'
         ]);
-
+    
         $user = Usuarios::findOrFail($id);
         $user->update([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'email' => $request->email,
         ]);
-
+    
+        // Remover todos los roles actuales antes de asignar uno nuevo
         $user->syncRoles($request->roles);
-
+    
         return redirect()->route('usuario.index')->with('success', 'Usuario actualizado exitosamente.');
     }
 
@@ -86,15 +86,7 @@ class UsuarioController extends Controller
         return view('usuario.assign-role', compact('user', 'roles'));
     }
 
-    public function assignRole(Request $request, $userId)
-    {
-        $request->validate([
-            'role' => 'required|exists:roles,name',
-        ]);
 
-        $user = Usuarios::findOrFail($userId);
-        $user->assignRole($request->input('role'));
-
-        return redirect()->back()->with('success', 'Rol asignado exitosamente.');
-    }
+        
 }
+

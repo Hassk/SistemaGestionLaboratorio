@@ -10,7 +10,7 @@
     </div>
     @if(session('success'))
         <meta name="alert-success" content="{{ session('success') }}">
-    @endif  
+    @endif 
     <table class="table">
         <thead>
             <tr>

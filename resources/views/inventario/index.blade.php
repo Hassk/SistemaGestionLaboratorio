@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Inventario - Gestión de Inventario')
+@section('title', 'Inventario')
 
 @section('content')
 <div class="container mt-4">
     <h1>Inventario</h1>
     @if(session('success'))
         <meta name="alert-success" content="{{ session('success') }}">
-    @endif
+    @endif 
 
     <div class="row">
         <div class="col-md-3">
@@ -41,7 +41,9 @@
         <thead>
             <tr>
                 <th>N°</th>
-                <th>Nombre</th>
+                <th>Código Laboratorio</th>
+                <th>Código Fábrica</th>
+                <th>Nombre Artículo</th>
                 <th>Descripción</th>
                 <th>Categoría</th>
                 <th>Cantidad</th>
@@ -53,6 +55,8 @@
             @foreach($productos as $producto)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $producto->codigo_laboratorio }}</td>
+                    <td>{{ $producto->codigo_fabrica }}</td>
                     <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->descripcion }}</td>
                     <td>{{ $producto->categoria->nombre }}</td>
@@ -82,7 +86,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/success-alert.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/delete-confirm.js') }}"></script>
-    <script src="{{ asset('js/search.js') }}"></script> <!-- Incluye el archivo de búsqueda -->
+    <script src="{{ asset('js/success-alert.js') }}"></script>
 @endsection

@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalProductos = Producto::count();
+        $totalProducto = Producto::count();
         $totalCategorias = Categorias::count();
         $totalPrestamos = Prestamo::count();
         $totalReportes = Reporte::count();
@@ -23,8 +23,7 @@ class DashboardController extends Controller
         $totalMantenimiento = Mantenimiento::count();
         $totalUsuarios = Usuarios::count();
 
-        // Agrega más modelos y recuentos según sea necesario
 
-        return view('dashboard', compact('totalProductos', 'totalCategorias', 'totalPrestamos','totalReportes','totalSolicitudes','totalMantenimiento','totalUsuarios'));
+        return view('dashboard', compact('totalProducto', 'totalCategorias', 'totalPrestamos','totalReportes','totalSolicitudes','totalMantenimiento','totalUsuarios'));
     }
 }

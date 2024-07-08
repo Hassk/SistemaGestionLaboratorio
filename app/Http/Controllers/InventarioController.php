@@ -38,10 +38,12 @@ class InventarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'codigo_laboratorio' => 'required|string|max:20',
+            'codigo_fabrica' => 'required|string|max:20',
+            'nombre' => 'required|string|max:150',
             'descripcion' => 'required|string|max:255',
             'categoria_id' => 'required|integer|exists:categorias,id',
-            'cantidad' => 'required|integer',
+            'cantidad' => 'required|integer|min:0|max:999',
         ]);
 
         Producto::create($request->all());
@@ -59,10 +61,12 @@ class InventarioController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'codigo_laboratorio' => 'required|string|max:20',
+            'codigo_fabrica' => 'required|string|max:20',
+            'nombre' => 'required|string|max:150',
             'descripcion' => 'required|string|max:255',
             'categoria_id' => 'required|integer|exists:categorias,id',
-            'cantidad' => 'required|integer',
+            'cantidad' => 'required|integer|min:0|max:999',
         ]);
 
         $producto = Producto::findOrFail($id);
@@ -123,5 +127,17 @@ class InventarioController extends Controller
         }
 
         return response()->json(['table_data' => $output]);
+    }
+
+    // Nuevo método para la búsqueda de productos para select2
+    public function searchProductos(Request $request)
+    {
+        $search = $request->input('query');
+
+        $productos = Producto::when($search, function ($query, $search) {
+            return $query->where('nombre', 'like', "%$search%");
+        })->get(['id', 'nombre']); // Solo necesitamos los campos 'id' y 'nombre'
+
+        return response()->json($productos);
     }
 }

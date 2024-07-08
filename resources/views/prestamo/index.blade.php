@@ -10,7 +10,12 @@
     </div>
     @if(session('success'))
         <meta name="alert-success" content="{{ session('success') }}">
-    @endif  
+    @endif 
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -23,6 +28,7 @@
                 <th>Descripción</th>
                 <th>Fecha de Préstamo</th>
                 <th>Fecha de Devolución</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -38,6 +44,7 @@
                     <td>{{ $prestamo->descripcion }}</td>
                     <td>{{ Carbon\Carbon::parse($prestamo->fecha_prestamo)->format('d/m/Y') }}</td>
                     <td>{{ Carbon\Carbon::parse($prestamo->fecha_devolucion)->format('d/m/Y') }}</td>
+                    <td>{{ $prestamo->estado }}</td>
 
                     <td>
                         <div class="btn-group" role="group" aria-label="Acciones">

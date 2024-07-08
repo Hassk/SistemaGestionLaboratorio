@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('codigo_laboratorio', 20);
+            $table->string('codigo_fabrica', 20);
+            $table->string('nombre', 150);
+            $table->string('descripcion', 255);
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->integer('cantidad');
-            $table->string('estado')->default('disponible'); // Agrega el estado directamente en la tabla productos.
+            $table->string('estado')->default('disponible');
             $table->timestamps();
 
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');

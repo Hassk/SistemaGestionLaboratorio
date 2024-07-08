@@ -17,7 +17,8 @@ class Prestamo extends Model
         'docente_a_cargo',
         'descripcion',
         'fecha_prestamo',
-        'fecha_devolucion'
+        'fecha_devolucion',
+        'estado'
     ];
     
     protected $dates = ['fecha_prestamo', 'fecha_devolucion']; 

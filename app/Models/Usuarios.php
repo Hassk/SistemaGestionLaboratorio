@@ -25,7 +25,6 @@ class Usuarios extends Authenticatable
         'apellido',
         'email',
         'password',
-        'role'
     ];
     
 

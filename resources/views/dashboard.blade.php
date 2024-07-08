@@ -11,7 +11,7 @@
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header"><i class="fas fa-box"></i> Productos</div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ $totalProductos }}</h5>
+                    <h5 class="card-title">{{ $totalProducto }}</h5>
                     <p class="card-text">Total de productos en inventario.</p>
                 </div>
             </div>

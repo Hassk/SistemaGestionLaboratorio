@@ -26,7 +26,7 @@ class MantenimientoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'producto_id' => 'required|exists:producto,id',
+            'producto_id' => 'required|exists:productos,id',
             'usuario_id' => 'required|exists:usuarios,id',
             'descripcion' => 'required|string|max:255',
             'tipo' => 'required|string|max:255',
@@ -52,7 +52,7 @@ class MantenimientoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'producto_id' => 'required|exists:producto,id',
+            'producto_id' => 'required|exists:productos,id',
             'usuario_id' => 'required|exists:usuarios,id',
             'descripcion' => 'required|string|max:255',
             'tipo' => 'required|string|max:255',
@@ -87,11 +87,19 @@ class MantenimientoController extends Controller
     public function finalize(Request $request, $id)
     {
         $mantenimiento = Mantenimiento::findOrFail($id);
+    
+        // Actualizar el mantenimiento
         $mantenimiento->update([
             'fecha_fin' => now(), // Actualiza la fecha de fin al momento actual
             'estado' => 'finalizado' // Cambia el estado a finalizado
         ]);
-
+    
+        // Obtener el producto relacionado y actualizar su estado si existe fecha_fin
+        if ($mantenimiento->fecha_fin) {
+            $producto = Producto::findOrFail($mantenimiento->producto_id);
+            $producto->update(['estado' => 'disponible']);
+        }
+    
         return redirect()->route('mantenimientos.index')->with('success', 'Mantenimiento finalizado con éxito.');
     }
 }

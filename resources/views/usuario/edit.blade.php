@@ -23,18 +23,21 @@
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
         </div>
-        <div class="form-group">
-            <label for="role">Rol</label>
-            <select class="form-control" id="role" name="roles[]" multiple required>
-                @foreach($roles as $role)
-                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
         <button type="submit" class="btn btn-success">Actualizar Usuario</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Regresar</button>
     </form>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('refresh') === 'true') {
+            window.location.href = window.location.pathname; // Recargar la página sin los parámetros de búsqueda
+        }
+    });
+</script>
+
 
 @section('scripts')
     <script src="{{ asset('js/success-alert.js') }}"></script>

@@ -40,10 +40,16 @@
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Regresar</button>
     </form>
 </div>
 @endsection
 
 @section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('js/select2-init.js') }}"></script>
     <script src="{{ asset('js/success-alert.js') }}"></script>
+    <script src="{{ asset('js/delete-confirm.js') }}"></script>
 @endsection

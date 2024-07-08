@@ -17,9 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${index + 1}</td>
+                        <td>${producto.codigo_laboratorio}</td>
+                        <td>${producto.codigo_fabrica}</td>
                         <td>${producto.nombre}</td>
                         <td>${producto.descripcion}</td>
-                        <td>${producto.categoria ? producto.categoria.nombre : ''}</td>
+                        <td>${producto.categorias ? producto.categorias.nombre : ''}</td>
                         <td>${producto.cantidad}</td>
                         <td class="${producto.estado === 'disponible' ? 'text-success' : 'text-danger'}">
                             ${producto.estado.charAt(0).toUpperCase() + producto.estado.slice(1)}
@@ -44,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td colspan="7" class="text-center">No se encontraron productos</td>
+                    <td colspan="9" class="text-center">No se encontraron productos</td>
                 `;
                 tableBody.appendChild(row);
             }

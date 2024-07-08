@@ -17,7 +17,8 @@ class Mantenimiento extends Model
         'descripcion',
         'tipo',
         'fecha_inicio',
-        'fecha_fin'
+        'fecha_fin',
+        'estado'
     ];
 
     protected $dates = ['fecha_inicio', 'fecha_fin'];

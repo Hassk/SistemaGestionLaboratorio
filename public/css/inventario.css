@@ -12,6 +12,7 @@ body {
     margin: 0;
     font-family: 'Exo', sans-serif;
 }
+
 .side-image img {
     width: 100px; /* Ajusta este valor según sea necesario */
     height: auto;
@@ -37,6 +38,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    object-fit: cover; /* Asegura que la imagen se recorte adecuadamente */
 }
 
 .nav-menu ul {
@@ -53,9 +55,6 @@ body {
     transition: background 0.3s;
 }
 
-.nav-menu ul li a:hover {
-    background-color: #555;
-}
 
 .content-area {
     flex-grow: 1;
@@ -89,16 +88,7 @@ header h1 {
     padding-top: 20px; /* Aumenta el padding superior para separar el contenido del ícono */
 }
 
-/* Modo oscuro */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
 
-.sidebar.dark-mode {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
 
 /* Ajustes adicionales para otros elementos */
 .nav-menu ul li a {
@@ -115,4 +105,32 @@ body.dark-mode {
 
 .btn-group .btn:last-child {
     margin-right: 0;
+}
+
+/* Centrar y alinear el contenido de la tabla */
+.table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
 }

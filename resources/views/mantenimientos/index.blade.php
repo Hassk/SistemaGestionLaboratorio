@@ -10,7 +10,7 @@
     </div>
     @if(session('success'))
         <meta name="alert-success" content="{{ session('success') }}">
-    @endif
+    @endif 
     <table class="table">
         <thead>
             <tr>
@@ -21,6 +21,7 @@
                 <th>Tipo</th>
                 <th>Fecha de Inicio</th>
                 <th>Fecha de Fin</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>

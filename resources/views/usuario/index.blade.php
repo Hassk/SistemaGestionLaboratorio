@@ -4,10 +4,8 @@
 <div class="container">
     <h1>Administración de Usuarios</h1>
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        <meta name="alert-success" content="{{ session('success') }}">
+    @endif 
     <a href="{{ route('usuario.create') }}" class="btn btn-primary mb-3">Crear Usuario</a>
     <table class="table">
         <thead>

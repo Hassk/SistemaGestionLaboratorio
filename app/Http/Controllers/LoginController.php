@@ -10,10 +10,10 @@ class LoginController extends Controller
 {
     public function register(Request $request){
         $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|string|max:40',
+            'apellido' => 'required|string|max:40',
             'email' => 'required|string|email|max:255|unique:usuarios',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|max:12',
         ]);
     
         $user = new Usuarios();
@@ -24,7 +24,7 @@ class LoginController extends Controller
         $user->save();
     
         Auth::login($user);
-        return redirect(route('dashboard'));
+        return redirect()->route('dashboard.index');
     }
     
     public function login(Request $request){
